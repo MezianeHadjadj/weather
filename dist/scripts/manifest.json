@@ -1,0 +1,19 @@
+{
+  "manifest_version":2,
+  "name": "Weather application.",
+  "version": "0.1",
+  "description": "Chrome extension for weather.",
+  "permissions":["<all_urls>","webRequestBlocking","webRequest", "storage"],
+  "content_scripts": [ {
+    "js": [ "jquery-min.js","bundle.js"],
+    "matches": ["<all_urls>"]
+  }],
+  "background": {
+
+  },
+  "icons": {
+    "128": "icons/128.png"
+  }
+}
+ 
+ 
