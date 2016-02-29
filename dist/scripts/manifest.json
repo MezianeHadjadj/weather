@@ -3,16 +3,23 @@
   "name": "Weather application.",
   "version": "0.1",
   "description": "Chrome extension for weather.",
-  "permissions":["<all_urls>","webRequestBlocking","webRequest", "storage"],
+  "permissions": [
+    "http://api.openweathermap.org/data/2.5/*"
+  ],
   "content_scripts": [ {
     "js": [ "jquery-min.js","bundle.js"],
     "matches": ["<all_urls>"]
   }],
   "background": {
-
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_icon": "images/128.png",
+    "default_popup": "html/popup.html"
   },
   "icons": {
-    "128": "icons/128.png"
+    "128": "images/128.png"
   }
 }
  

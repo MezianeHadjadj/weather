@@ -10,7 +10,6 @@ var concat = require('gulp-concat'); //Concatenates files
 var lint = require('gulp-eslint'); //Lint JS files, including JSX
 var uglify = require('gulp-uglify');
 var buffer = require('vinyl-buffer');
-
 var config = {
 	port: 9005,
 	devBaseUrl: 'http://localhost',
@@ -23,7 +22,9 @@ var config = {
       		'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
     	],
 		dist: './dist',
-		mainJs: './src/main.js'
+		mainJs: './src/main.js',
+		background: './src/background.js',
+		content: './src/content.js'
 	}
 }
 
@@ -44,7 +45,7 @@ gulp.task('open', ['connect'], function() {
 
 gulp.task('html', function() {
 	gulp.src(config.paths.html)
-		.pipe(gulp.dest(config.paths.dist))
+		.pipe(gulp.dest(config.paths.dist+"/scripts/html"))
 		.pipe(connect.reload());
 });
 
@@ -56,6 +57,22 @@ gulp.task('js', function() {
 		.pipe(source('bundle.js'))
         .pipe(buffer())
         //.pipe(uglify())
+		.pipe(gulp.dest(config.paths.dist + '/scripts'))
+		.pipe(connect.reload());
+	browserify(config.paths.background)
+		.bundle()
+		.on('error', console.error.bind(console))
+		.pipe(source('background.js'))
+		.pipe(buffer())
+		//.pipe(uglify())
+		.pipe(gulp.dest(config.paths.dist + '/scripts'))
+		.pipe(connect.reload());
+	browserify(config.paths.content)
+		.bundle()
+		.on('error', console.error.bind(console))
+		.pipe(source('content.js'))
+		.pipe(buffer())
+		//.pipe(uglify())
 		.pipe(gulp.dest(config.paths.dist + '/scripts'))
 		.pipe(connect.reload());
 });
@@ -70,7 +87,7 @@ gulp.task('css', function() {
 // Note that I could even optimize my images here
 gulp.task('images', function () {
     gulp.src(config.paths.images)
-        .pipe(gulp.dest(config.paths.dist + '/images'))
+        .pipe(gulp.dest(config.paths.dist + '/scripts/images'))
         .pipe(connect.reload());
 
     //publish favicon

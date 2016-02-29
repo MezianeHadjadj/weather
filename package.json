@@ -23,7 +23,8 @@
     "object-assign": "^4.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "vinyl-transform": "^1.0.0"
+    "vinyl-transform": "^1.0.0",
+    "request": "2.69.0"
   },
   "devDependencies": {
     "gulp-uglify": "^1.4.2"
