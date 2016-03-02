@@ -2,8 +2,9 @@
 /**
  * Created by meziane on 29/02/16.
  */
+chrome.runtime.onMessage.addListener(
+    function(request, sender, callback) {
 
-chrome.runtime.onMessage.addListener(function(request, sender, callback) {
     if (request.action == "xhttp") {
         var xhttp = new XMLHttpRequest();
         var method = request.method ? request.method.toUpperCase() : 'GET';
@@ -23,5 +24,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, callback) {
         xhttp.send(request.data);
         return true; // prevents the callback from being called too early on return
     }
+        if (request.command == "actual_location") {
+
+            navigator.geolocation.getCurrentPosition (function (position) {
+                callback ( {"lat": position.coords.latitude ,"lng": position.coords.longitude }
+
+                 );
+            } );
+            return true; // Needed because the response is asynchronous
+        }
+
 });
 },{}]},{},[1]);

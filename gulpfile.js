@@ -19,12 +19,13 @@ var config = {
 		images: './src/images/*',
 		css: [
       		'node_modules/bootstrap/dist/css/bootstrap.min.css',
-      		'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
+      		'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
+			'./src/css/style.css'
     	],
 		dist: './dist',
 		mainJs: './src/main.js',
-		background: './src/background.js',
-		content: './src/content.js'
+		jsrc: './src/js/'
+
 	}
 }
 
@@ -59,7 +60,7 @@ gulp.task('js', function() {
         //.pipe(uglify())
 		.pipe(gulp.dest(config.paths.dist + '/scripts'))
 		.pipe(connect.reload());
-	browserify(config.paths.background)
+	browserify(config.paths.jsrc+'background.js')
 		.bundle()
 		.on('error', console.error.bind(console))
 		.pipe(source('background.js'))
@@ -67,14 +68,42 @@ gulp.task('js', function() {
 		//.pipe(uglify())
 		.pipe(gulp.dest(config.paths.dist + '/scripts'))
 		.pipe(connect.reload());
-	browserify(config.paths.content)
+	browserify(config.paths.jsrc+'controllers/weatherController.js')
 		.bundle()
 		.on('error', console.error.bind(console))
-		.pipe(source('content.js'))
+		.pipe(source('bundle.js'))
 		.pipe(buffer())
 		//.pipe(uglify())
 		.pipe(gulp.dest(config.paths.dist + '/scripts'))
 		.pipe(connect.reload());
+	browserify(config.paths.jsrc+'services/weatherService.js')
+		.bundle()
+		.on('error', console.error.bind(console))
+		.pipe(source('weatherService.js'))
+		.pipe(buffer())
+		//.pipe(uglify())
+		.pipe(gulp.dest(config.paths.dist + '/scripts'))
+		.pipe(connect.reload());
+	browserify(config.paths.jsrc+'angular.min.js')
+		.bundle()
+		.on('error', console.error.bind(console))
+		.pipe(source('angular.min.js'))
+		.pipe(buffer())
+		//.pipe(uglify())
+		.pipe(gulp.dest(config.paths.dist + '/scripts'))
+		.pipe(connect.reload());
+
+/*	browserify(config.paths.jsrc+'weather.js')
+		.bundle()
+		.on('error', console.error.bind(console))
+		.pipe(source('weather.js'))
+		.pipe(buffer())
+		//.pipe(uglify())
+		.pipe(gulp.dest(config.paths.dist + '/scripts'))
+		.pipe(connect.reload());
+*/
+
+
 });
 
 gulp.task('css', function() {
@@ -103,11 +132,11 @@ gulp.task('lint', function() {
 
 gulp.task('watch', function() {
 	gulp.watch(config.paths.html, ['html']);
-	gulp.watch(config.paths.js, ['js', 'lint']);
+	gulp.watch(config.paths.js, ['js']);
 });
 
 //gulp.task('default', ['html', 'js', 'css', 'images', 'lint', 'open', 'watch']);
 
 gulp.task('default', function() {
-	gulp.start('html', 'js', 'css', 'images', 'lint', 'open', 'watch');
+	gulp.start('html', 'js', 'css', 'images', 'open', 'watch');
 });

@@ -1,7 +1,5 @@
 "use strict";
 
-console.log("test");
-var WeatherService= require("./weather");
-console.log(WeatherService);
+var WeatherService= require("./js/services/weather");
+
 var GetWeather=WeatherService.GetWeather("Tizi ouzou");
-console.log(GetWeather);

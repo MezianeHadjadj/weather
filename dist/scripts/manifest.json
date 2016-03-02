@@ -4,7 +4,8 @@
   "version": "0.1",
   "description": "Chrome extension for weather.",
   "permissions": [
-    "http://api.openweathermap.org/data/2.5/*"
+    "http://api.openweathermap.org/data/2.5/*",
+    "geolocation"
   ],
   "content_scripts": [ {
     "js": [ "jquery-min.js","bundle.js"],
