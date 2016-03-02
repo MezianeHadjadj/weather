@@ -33,12 +33,12 @@
                     <i class="cloud windy"></i>
                 </div>
                 <div class="content">
-                    <h3>Day</h3>
-                    <div class="degrees">+ 3</div>
+                    <h3>Tomorrow</h3>
+                    <div class="degrees">{{ day1.temp }}</div>
                     <div class="data">
-                        <h2>Mostly Sunny</h2>
-                        <div>Wind: N 5 mph</div>
-                        <div>Humidity: 45%</div>
+                        <h2>{{ day1.situation }}</h2>
+                        <div>Wind: {{ day1.speed }} speed</div>
+                        <div>Humidity: {{ day1.humidity }}%</div>
                     </div>
                 </div>
             </div>
@@ -52,12 +52,12 @@
                     <i class="sprinkles"></i>
                 </div>
                 <div class="content">
-                    <h3>Evening</h3>
-                    <div class="degrees">0</div>
+                    <h3>After Tomorrow</h3>
+                    <div class="degrees">{{ day2.temp }}</div>
                     <div class="data">
-                        <h2>Rainy</h2>
-                        <div>Wind: W 12 mph</div>
-                        <div>Humidity: 91%</div>
+                        <h2>{{ day2.situation }}</h2>
+                        <div>Wind: {{ day2.speed }} speed</div>
+                        <div>Humidity: {{ day2.humidity }}%</div>
                     </div>
                 </div>
             </div>
@@ -73,12 +73,12 @@
                     </div>
                 </div>
                 <div class="content">
-                    <h3>Night</h3>
-                    <div class="degrees">- 2</div>
+                    <h3>Tomorrow</h3>
+                    <div class="degrees">{{ day3.temp }}</div>
                     <div class="data">
-                        <h2>Cloudy</h2>
-                        <div>Wind: N 2 mph</div>
-                        <div>Humidity: 47%</div>
+                        <h2>{{ day3.situation }}</h2>
+                        <div>Wind: {{ day3.speed }} speed</div>
+                        <div>Humidity: {{ day3.humidity }}%</div>
                     </div>
                 </div>
             </div>

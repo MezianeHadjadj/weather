@@ -60768,24 +60768,10 @@ angular.module('core', ['content','weatherService']);
 angular.module('content', [])
 
     .controller('mainController', ['$scope','$http', 'Weather', function($scope, $http, Weather) {
-             $scope.get_weather=function(callback) {
-                var WeatherService=require("./../services/weather");
-                if (navigator.geolocation) {
-                    chrome.runtime.sendMessage({command: "actual_location"}, function (response) {
-                        console.log(JSON.stringify(response));
-                        var GetWeather = WeatherService.GetWeather("Tizi ouzou", function (result) {
-                            result = JSON.parse(result)
-                            callback(result)
 
-                        });
-
-                    });
-                } else {
-                    console.log("Show a popup ask for location permission or tap her location.")
-                }
-            };
+        var WeatherService=require("./../services/weather");
         Weather.get_weather(function(result){
-            console.log('+result+' + result["weather"][0]["main"]);
+
             //get situation
             if (result["weather"][0]["main"]=="Clear"){
                 $scope.sun=true;
@@ -60804,6 +60790,29 @@ angular.module('content', [])
         });
 
 
+        Weather.get_next_weather(function(result){
+            console.log("NEXT RESULT"+JSON.stringify(result))
+            $scope.day1={};
+            $scope.day1.situation=result["list"][0]["weather"][0]["main"];
+            $scope.day1.temp=(result["list"][0]["main"]["temp"]-273.15).toFixed(2);
+            $scope.day1.humidity=result["list"][0]["main"]["humidity"];
+            $scope.day1.speed=result["list"][0]["wind"]["speed"];
+
+            $scope.day2={};
+            $scope.day2.situation=result["list"][1]["weather"][0]["main"];
+            $scope.day2.temp=(result["list"][1]["main"]["temp"]-273.15).toFixed(2);
+            $scope.day2.humidity=result["list"][1]["main"]["humidity"];
+            $scope.day2.speed=result["list"][1]["wind"]["speed"];
+
+            $scope.day3={};
+            $scope.day3.situation=result["list"][2]["weather"][0]["main"];
+            $scope.day3.temp=(result["list"][2]["main"]["temp"]-273.15).toFixed(2);
+            $scope.day3.humidity=result["list"][2]["main"]["humidity"];
+            $scope.day3.speed=result["list"][2]["wind"]["speed"];
+            $scope.$apply();
+
+          });
+
 
 }]);
 
@@ -60811,7 +60820,6 @@ angular.module('content', [])
 var request = require('request');
 
 var WeatherService={
-
 
     GetWeather : function(location ,callback) {
                 var url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&APPID=e376febd4fa2e5f5678a657617e1cf63"
@@ -60824,7 +60832,19 @@ var WeatherService={
                     callback( responseText);
                 });
 
-            }
+            },
+    GetNextWeather : function(location, callback){
+        console.log("next weather file");
+        var url="http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&cnt=3&APPID=e376febd4fa2e5f5678a657617e1cf63";
+        chrome.runtime.sendMessage({
+            method: 'GET',
+            action: 'xhttp',
+            url: url
+        }, function(responseText) {
+            callback( responseText);
+        });
+
+    }
 
 
 
