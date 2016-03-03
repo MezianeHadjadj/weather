@@ -60764,8 +60764,10 @@ var request = require('request');
 var WeatherService={
 
     GetWeather : function(location ,callback) {
-                var url = "http://api.openweathermap.org/data/2.5/weather?q="+location+"&APPID=e376febd4fa2e5f5678a657617e1cf63"
-
+        //-51.973061, -22.8375 ]  -73.587807, 45.508839 ] ]
+        //location.lng=-73.587807;
+        //location.lat= 45.508839
+                var url = "http://api.openweathermap.org/data/2.5/weather?lat="+location.lat+"&lon="+location.lng+"&APPID=e376febd4fa2e5f5678a657617e1cf63"
                 chrome.runtime.sendMessage({
                     method: 'GET',
                     action: 'xhttp',
@@ -60776,8 +60778,9 @@ var WeatherService={
 
             },
     GetNextWeather : function(location, callback){
-        console.log("next weather file");
-        var url="http://api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&cnt=3&APPID=e376febd4fa2e5f5678a657617e1cf63";
+        //location.lng=-73.587807;
+        //location.lat= 45.508839
+        var url="http://api.openweathermap.org/data/2.5/forecast?lat="+location.lat+"&lon="+location.lng+"&cnt=3&APPID=e376febd4fa2e5f5678a657617e1cf63";
         chrome.runtime.sendMessage({
             method: 'GET',
             action: 'xhttp',
@@ -60804,9 +60807,10 @@ angular.module('weatherService', [])
                 var WeatherService=require("./weather");
                 if (navigator.geolocation) {
                     chrome.runtime.sendMessage({command: "actual_location"}, function (response) {
-                        console.log(JSON.stringify(response));
-                        var GetWeather = WeatherService.GetWeather("Tizi ouzou", function (result) {
+                        var GetWeather = WeatherService.GetWeather(response, function (result) {
+                            console.log("webegn"+ result);
                             result = JSON.parse(result);
+                            console.log("weend");
                             callback(result);
                         });
 
@@ -60818,12 +60822,13 @@ angular.module('weatherService', [])
 
             },
             get_next_weather: function(callback){
-                console.log("next")
                 var WeatherService=require("./weather");
                 if (navigator.geolocation) {
                     chrome.runtime.sendMessage({command: "actual_location"}, function (response) {
-                        var GetWeather = WeatherService.GetNextWeather("Tizi ouzou", function (result) {
-                            result = JSON.parse(result);
+                        var GetWeather = WeatherService.GetNextWeather(response, function (result) {
+                           console.log("start:" + result);
+                            result=JSON.parse(result);
+                            console.log("enddd");
                             callback(result);
                         });
 

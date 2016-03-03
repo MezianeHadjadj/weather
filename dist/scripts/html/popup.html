@@ -12,13 +12,20 @@
         <header></header>
 
         <section>
-            <div class="weather time-morning active">
+            <div class="{{ class0 }}">
                 <div class="icon">
-                    <i class="sun" ng-show="sun"></i>
+                    <i class="{{ weather_icon }}" ></i>
+                    <i class="{{ weather_icon1 }}"></i>
+                    <i class="{{ dots }}"></i>
+                    <i class="{{ dots }}"></i>
+                    <i class="{{ dots }}"></i>
+                    <i class="{{ dots }}"></i>
+
+
 
                 </div>
                 <div class="content">
-                    <h3>Today</h3>
+                    <h3>{{ location }} </h3>
                     <div class="degrees">{{ temp }}</div>
                     <div class="data">
                         <h2>{{ situation }}</h2>
@@ -27,61 +34,31 @@
                     </div>
                 </div>
             </div>
-            <div class="weather time-day">
-                <div class="icon">
-                    <i class="sun"></i>
-                    <i class="cloud windy"></i>
-                </div>
-                <div class="content">
-                    <h3>Tomorrow</h3>
-                    <div class="degrees">{{ day1.temp }}</div>
-                    <div class="data">
-                        <h2>{{ day1.situation }}</h2>
-                        <div>Wind: {{ day1.speed }} speed</div>
-                        <div>Humidity: {{ day1.humidity }}%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="weather time-evening">
-                <div class="icon">
-                    <i class="sun"></i>
-                    <i class="cloud"></i>
-                    <i class="sprinkles"></i>
-                    <i class="sprinkles"></i>
-                    <i class="sprinkles"></i>
-                    <i class="sprinkles"></i>
-                </div>
-                <div class="content">
-                    <h3>After Tomorrow</h3>
-                    <div class="degrees">{{ day2.temp }}</div>
-                    <div class="data">
-                        <h2>{{ day2.situation }}</h2>
-                        <div>Wind: {{ day2.speed }} speed</div>
-                        <div>Humidity: {{ day2.humidity }}%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="weather time-night">
-                <div class="icon">
-                    <i class="moon"></i>
-                    <i class="cloud"></i>
-                    <div class="snowflakes">
-                        <i class="snowflake"></i>
-                        <i class="snowflake"></i>
-                        <i class="snowflake"></i>
-                        <i class="snowflake"></i>
-                    </div>
-                </div>
-                <div class="content">
-                    <h3>Tomorrow</h3>
-                    <div class="degrees">{{ day3.temp }}</div>
-                    <div class="data">
-                        <h2>{{ day3.situation }}</h2>
-                        <div>Wind: {{ day3.speed }} speed</div>
-                        <div>Humidity: {{ day3.humidity }}%</div>
-                    </div>
-                </div>
-            </div>
+            <!-- next days -->
+
+               <div ng-repeat="day in days" class="{{ day.class0 }}">
+                   <div class="icon">
+                       <i class="{{ day.weather_icon }}" ></i>
+                       <i class="{{ day.weather_icon1 }}"></i>
+                       <i class="{{ day.dots }}"></i>
+                       <i class="{{ day.dots }}"></i>
+                       <i class="{{ day.dots }}"></i>
+                       <i class="{{ day.dots }}"></i>
+
+                   </div>
+                   <div class="content">
+                       <h3>{{ day.date }}</h3>
+                       <div class="degrees">{{ day.temp }}</div>
+                       <div class="data">
+                           <h2>{{ day.situation }}</h2>
+                           <div>Wind: {{ day.speed }} speed </div>
+                           <div>Humidity: {{ day.humidity }}%</div>
+                       </div>
+                   </div>
+               </div>
+
+
+
         </section>
     </div>
 

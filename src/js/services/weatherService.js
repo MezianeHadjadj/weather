@@ -7,9 +7,10 @@ angular.module('weatherService', [])
                 var WeatherService=require("./weather");
                 if (navigator.geolocation) {
                     chrome.runtime.sendMessage({command: "actual_location"}, function (response) {
-                        console.log(JSON.stringify(response));
-                        var GetWeather = WeatherService.GetWeather("Tizi ouzou", function (result) {
+                        var GetWeather = WeatherService.GetWeather(response, function (result) {
+                            console.log("webegn"+ result);
                             result = JSON.parse(result);
+                            console.log("weend");
                             callback(result);
                         });
 
@@ -21,12 +22,13 @@ angular.module('weatherService', [])
 
             },
             get_next_weather: function(callback){
-                console.log("next")
                 var WeatherService=require("./weather");
                 if (navigator.geolocation) {
                     chrome.runtime.sendMessage({command: "actual_location"}, function (response) {
-                        var GetWeather = WeatherService.GetNextWeather("Tizi ouzou", function (result) {
-                            result = JSON.parse(result);
+                        var GetWeather = WeatherService.GetNextWeather(response, function (result) {
+                           console.log("start:" + result);
+                            result=JSON.parse(result);
+                            console.log("enddd");
                             callback(result);
                         });
 

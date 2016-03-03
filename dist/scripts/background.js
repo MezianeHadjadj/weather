@@ -2,10 +2,13 @@
 /**
  * Created by meziane on 29/02/16.
  */
+var angular=
 chrome.runtime.onMessage.addListener(
     function(request, sender, callback) {
 
+
     if (request.action == "xhttp") {
+
         var xhttp = new XMLHttpRequest();
         var method = request.method ? request.method.toUpperCase() : 'GET';
 
@@ -23,6 +26,7 @@ chrome.runtime.onMessage.addListener(
         }
         xhttp.send(request.data);
         return true; // prevents the callback from being called too early on return
+
     }
         if (request.command == "actual_location") {
 
