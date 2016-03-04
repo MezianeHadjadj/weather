@@ -13,7 +13,7 @@ angular.module('content', [])
 
 
 
-            
+
 
             //get situation
             if (result["weather"][0]["main"]=="Clear"){
@@ -43,8 +43,8 @@ angular.module('content', [])
             $scope.location=result["name"];
             $scope.temp= (result["main"]["temp"]-273.15).toFixed(2);
             //get humidity
-            $scope.humidity=result["main"]["humidity"];
-            $scope.speed=result["wind"]["speed"]
+            $scope.humidity= "Humidity: " + result["main"]["humidity"] +" %";
+            $scope.speed= "Wind: " + result["wind"]["speed"] +" speed";
             $scope.$apply();
 
         });
@@ -52,13 +52,14 @@ angular.module('content', [])
 
         Weather.get_next_weather(function(result){
             $scope.days=[0,0,0];
+            var days=["First day", "Second day", "Third day"]
             for (var i=0; i<3; i++){
                 $scope.days[i]={}
                 $scope.days[i]["situation"]=result["list"][i]["weather"][0]["main"];
                 $scope.days[i].temp=(result["list"][i]["main"]["temp"]-273.15).toFixed(2);
                 $scope.days[i].humidity=result["list"][i]["main"]["humidity"];
                 $scope.days[i].speed=result["list"][i]["wind"]["speed"];
-                $scope.days[i].date= (result["list"][i]["dt_txt"]).slice(0,10);
+                $scope.days[i].date= days[i];
                 // icons
                 if (result["list"][i]["weather"][0]["main"]=="Clear"){
                     $scope.days[i].class0="weather time-morning active";

@@ -1,5 +1,5 @@
 "use strict";
 
-var WeatherService= require("./js/services/weather");
+//var WeatherService= require("./js/services/weather");
 
-var GetWeather=WeatherService.GetWeather("Tizi ouzou");
+//var GetWeather=WeatherService.GetWeather("Tizi ouzou");
